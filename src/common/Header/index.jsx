@@ -1,8 +1,10 @@
 import React from "react";
+import {connect} from "react-redux";
 import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addtion, Button, SearchWrapper } from "./style";
+import {navSearchFocus, navSearchBlur} from "../../store/ActionCreator";
+import classnames from "classnames";
 
-export default class Header extends React.Component {
-    render() {
+const Header = (props) => {
         return (
             <HeaderWrapper>
                 <Logo />
@@ -12,7 +14,11 @@ export default class Header extends React.Component {
                     <NavItem className="right">登陆</NavItem>
                     <NavItem className="right">Aa</NavItem>
                     <SearchWrapper>
-                        <NavSearch></NavSearch>
+                        <NavSearch
+                            onFocus={props.handleInputFocus}
+                            onBlur={props.handleInputBlur}
+                            className={classnames({"red": props.focus})}
+                        ></NavSearch>
                         <i className="iconfont">&#xe601;</i>
                     </SearchWrapper>
                 </ Nav>
@@ -25,5 +31,25 @@ export default class Header extends React.Component {
                 </Addtion>
             </HeaderWrapper>
         )
+}
+
+const mapStateToProps = (state) => {
+    return {
+        focus: state.focus,
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleInputFocus() {
+            const action = navSearchFocus();
+           dispatch(action);
+        },
+
+        handleInputBlur() {
+            const action = navSearchBlur();
+            dispatch(action);
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -65,6 +65,9 @@ export const NavSearch = styled.input.attrs({
     &::placeholder {
         color: #999;
     }
+    &.red {
+        border: solid 1px red;
+    }
 `;
 
 export const Addtion = styled.div`
