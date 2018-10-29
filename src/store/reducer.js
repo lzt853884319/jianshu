@@ -1,21 +1,8 @@
-import NAV_SEARCH_BLUR from "./actionsType";
-import actionsType from "./actionsType";
-const defaultState = {
-    focus: false
-};
+import {combineReducers} from "redux-immutable";
+import headerReducer from "../common/Header/store/reducer";
 
-export default (state = defaultState, action)=> {
-    console.log(1);
-    const newState = JSON.parse(JSON.stringify(state));
-    switch (action.type ){
-        case actionsType.NAV_SEARCH_FOCUS:
-            newState.focus = true;
-            break;
-        case actionsType.NAV_SEARCH_BLUR:
-            newState.focus = false;
-            break;
-        default:
-            break;
-    }
-    return newState;
-}
+
+export default combineReducers({
+    header: headerReducer
+})
+
